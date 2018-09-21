@@ -1,14 +1,13 @@
 
 const fs = require('fs');
 const util = require('util');
-const Canvas = require('canvas')
-  , Image = Canvas.Image
+const { createCanvas, Image } = require('canvas')
 
 const { Limit, limit } = require('./limit.js');
 const scale = 10;
 
 Preview = (nodes) => {
-  const canvas = new Canvas(2000, 1700);
+  const canvas = createCanvas(2000, 1700);
   const ctx = canvas.getContext('2d');
   ctx.strokeStyle = 'agb(0,0,0)';
   nodes.forEach((st, i) => {
@@ -20,7 +19,9 @@ Preview = (nodes) => {
       } else {
         ctx.lineTo(tr_[0] * scale,tr_[1] * scale);
       }
-      console.log(tr,i ,j)
+      if (j < 8) {
+        console.log(tr,i ,j)
+      }
     });
     // ctx.closePath();
   })

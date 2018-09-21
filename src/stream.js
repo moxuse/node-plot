@@ -51,7 +51,7 @@ const Stream = function(data) {
   const d_ = makePostData(data);
   const params = new URLSearchParams();
   params.append('job_data' , d_);
-  console.log(params);
+  // console.log(params);
   const rq = axios.create({
     baseURL: 'http://localhost:4444',
     timeout: 1000

@@ -10,9 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "canvas": "^1.6.11",
+    "canvas": "^2.0.0-alpha.14",
     "flood-fill": "^0.1.1",
     "form-data": "^2.3.2",
+    "fs": "0.0.1-security",
+    "imagetracerjs": "^1.2.4",
+    "png.js": "^0.2.1",
     "text-encoding": "^0.6.4",
     "utf8": "^3.0.0",
     "zeros": "^1.0.0"

@@ -1,31 +1,35 @@
 
-translate = (stroke, [x, y]) => {
+const translate = (stroke, [x, y]) => {
   return stroke.map((tr) => {
-    return[tr[0] + x, tr[1] + y];
+    return tr.map((t) => {
+      return[t[0] + x, t[1] + y];
+    })
   })
 }
 
-scale = (stroke, [x, y]) => {
+const scale = (stroke, [x, y]) => {
   return stroke.map((tr) => {
-    return[tr[0] * x, tr[1] * y];
+    return tr.map((t) => {
+      return[t[0] * x, t[1] * y];
+    })
   })
 }
 
-sin = (stroke, [x, y]) => {
-  let i = 0;
+const sin = (stroke, [x, y]) => {
   return stroke.map((tr) => {
-    const v = [Math.sin(i * x) + tr[0], Math.sin(i * y) + tr[1]];
-    i++;
-    return v;
+    return tr.map((t, i) => {
+      const v = [Math.sin(i * x) + t[0], Math.sin(i * y) + t[1]];
+      return v;
+    })
   })
 }
 
-cos = (stroke, [x, y]) => {
+const cos = (stroke, [x, y]) => {
   return stroke.map((tr) => {
-    let i = 0;
-    const v = [Math.cos(i * x) + tr[0], Math.cos(i * y) + tr[1]];
-    i++;
-    return v;
+    return tr.map((t, i) => {
+      const v = [Math.cos(i * x) + t[0], Math.cos(i * y) + t[1]];
+      return v;
+    })
   })
 }
 

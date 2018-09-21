@@ -1,8 +1,7 @@
-const fill = require('flood-fill')
-const zero = require('zeros')
+const zeros = require('zeros')
 
 const { Limit, limit } = require('./limit.js');
-
+const seedFill = require('./seedFill.js');
 
 const liner = (x1, y1, x2, y2) => {
   let raster  = [];
@@ -15,7 +14,7 @@ const liner = (x1, y1, x2, y2) => {
       const dx = x2 - x1;
       const dy = y2 - y1;
       let d = 2 * dy - dx;
-      raster.push({x: x1, y: y1});
+      raster.push([x1, y1]);
       let y = y1;
       for(let x = x1 + 1; x <= x2; x++) {
         if (d >= 0) {
@@ -24,13 +23,13 @@ const liner = (x1, y1, x2, y2) => {
         } else {
           d += 2 * dy;
         }
-        raster.push({x: x, y: y});
+        raster.push([x, y]);
       }
     } else {
       const dx = x2 - x1;
       const dy = -(y2 - y1);
       let d = 2 * dy - dx;
-      raster.push({x: x1, y: y1});
+      raster.push([x1, y1]);
       let y = y1;
       for(let x = x1 + 1; x <= x2; x++) {
         if (d >= 0) {
@@ -39,7 +38,7 @@ const liner = (x1, y1, x2, y2) => {
         } else {
             d += 2 * dy;
         }
-        raster.push({x: x, y: y});
+        raster.push([x, y]);
       }
     }
   } else {
@@ -51,7 +50,7 @@ const liner = (x1, y1, x2, y2) => {
       const dy = y2 - y1;
       const dx = x2 - x1;
       let d = 2 * dx - dy;
-      raster.push({x: x1, y: y1});
+      raster.push([x1, y1]);
       let x = x1;
       for(let y = y1 + 1; y <= y2; y++) {
         if (d >= 0) {
@@ -60,13 +59,13 @@ const liner = (x1, y1, x2, y2) => {
         } else {
             d += 2 * dx;
         }
-        raster.push({x: x, y: y});
+        raster.push([x, y]);
       }
     } else {
       const dy = y2 - y1;
       const dx = -(x2 - x1);
       let d = 2 * dx - dy;
-      raster.push({x: x1, y: y1});
+      raster.push([x1, y1]);
       let x = x1;
       for(let y = y1 + 1; y <= y2; y++) {
         if (d >= 0) {
@@ -75,30 +74,44 @@ const liner = (x1, y1, x2, y2) => {
         } else {
           d += 2 * dx;
         }
-        raster.push({x: x, y: y});
+        raster.push([x, y]);
       }
     }
   }
   return raster;
 }
 
-const raserLine = (trail) => {
-  const rounded = rounder(trail);
-  return rounded.map((p, i) => {
-    if (i >= 1) {
-      return liner(p[0], p[1], rounded[i - 1][0], rounded[i - 1][1]);
+const rasterLine = (stroke) => {
+  let rasters = [];
+  stroke.map((trail) => {
+    const rounded_ = rounded(trail);
+    for (let  i = 0; i < rounded_.length - 1; i++) {   
+      liner(rounded_[i][0], rounded_[i][1], rounded_[i + 1][0], rounded_[i + 1][1]).map((l) =>{
+        rasters.push(l);
+      })
     }
   })
+  return rasters;
 }
 
-const rounder = (tr) => {
+const rounded = (tr) => {
   return tr.map((l) => {
     return [Math.round(l[0]), Math.round(l[1])];
   })
 }
 
-const floodFill = () => {
-  
+const rasterZeros = (zeros_, points) => {
+  points.forEach((p) => {
+    zeros_.set(p[0], p[1], 1);
+  })
+  return zeros_;
 }
 
-module.exports = { liner, raserLine, floodFill };
+const seed = (stroke, x_, y_) => {
+  let plane = zeros([limit[0], limit[1]]);
+  const f = rasterLine(stroke);
+  rasterZeros(plane, f);
+  return stroke.concat(seedFill.fill(plane, x_, y_));
+}
+
+module.exports = { liner, rasterLine, seed, rounded,  seedFill };

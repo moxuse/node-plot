@@ -5,7 +5,8 @@ var repl = require("repl").start();
 	'm',
 	'g',
 	'f',
-	'filler'
+	'filler',
+	'tracer'
 ].forEach((modName) => {
   repl.context[modName] = require('./src/' + modName + '.js'); 
 });
