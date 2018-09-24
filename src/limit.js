@@ -1,4 +1,5 @@
-const limit = [200, 170];
+// const limit = [200, 170]; //short
+const limit = [200, 650]; //long
 const Limit = (tr, scale) => {
   let tr_ = tr;
   if (tr[0] < 0) {

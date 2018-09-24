@@ -3,6 +3,7 @@ const utf8 = require('utf8');
 const FormData = require('form-data');
 const { Limit, limit } = require('./limit.js');
 
+const baseURL_ = 'http://localhost:4444';
 const premble = [
   "G90", 
   "\nM80",
@@ -24,6 +25,10 @@ const makeGCode = (tp, i) => {
   v += 'X' + tp[0];
   v += 'Y' + tp[1];
   return v;
+}
+
+const homeJob = () => {
+  return '~\nG30'
 }
 
 const makePostData = (data) => {
@@ -49,14 +54,30 @@ const bufferFromString = (str) => {
 
 const Stream = function(data) {
   const d_ = makePostData(data);
+  return post(d_)
+}
+
+const Homing = () => {
+  return post(homeJob())
+}
+
+const post = (d_) => {
   const params = new URLSearchParams();
   params.append('job_data' , d_);
   // console.log(params);
   const rq = axios.create({
-    baseURL: 'http://localhost:4444',
+    baseURL: baseURL_,
     timeout: 1000
   });
   return rq.post('/gcode', params);
 }
 
-module.exports = Stream;
+const getActive = () => {
+  const rq = axios.create({
+    baseURL: baseURL_,
+    timeout: 1000
+  });
+  return rq.get('/job_active');
+}
+
+module.exports = { Stream, Homing, getActive };

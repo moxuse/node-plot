@@ -4,9 +4,9 @@ const rect = (st, x, y, x1, y1) => {
     return tr.filter((t) => {
       return (
         t[0] >= x
-        && t[0] <= x1
+        && t[0] <= x + x1
         && t[1] >= y 
-        && t[1] <= y1
+        && t[1] <= y + y1
       )
     })
   })

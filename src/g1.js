@@ -1,4 +1,4 @@
-const Stream = require('./stream.js');
+const { Stream } = require('./stream.js');
 
 var G1 = function (data) {
   Stream(data);
