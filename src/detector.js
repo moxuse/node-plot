@@ -1,26 +1,34 @@
 const cv = require('opencv4nodejs');
 
-const features = (img) => {
-  // detect keypoints
-  const detector = new cv.ORBDetector();
-  const keyPoints = detector.detect(img);
+class Detector {
+  constructor() {
+    // this.webcam = new cv.VideoCapture(1);
+    this.webcam = new cv.VideoCapture(0);
+    cv.VideoWriter.fourcc('MJPG')
+    this.webcam.set(cv.CAP_PROP_FRAME_WIDTH, 640);
+    this.webcam.set(cv.CAP_PROP_FRAME_HEIGHT, 480);
+    this.detector = new cv.ORBDetector();
+  }
 
-  const descriptors = detector.compute(img, keyPoints);
-  return { keyPoints, descriptors };
-};
+  features (img) {
+    // detect keypoints
+    const keyPoints = this.detector.detect(img);
 
-const numPoints = () => {
-  const webcam = new cv.VideoCapture(1);
-  cv.VideoWriter.fourcc('MJPG')
-  webcam.set(cv.CAP_PROP_FRAME_WIDTH, 640);
-  webcam.set(cv.CAP_PROP_FRAME_HEIGHT, 480);
-  const frame = webcam.read();
-  
-  const features_ = features(frame)
-  const res = cv.drawKeyPoints(frame, features_.keyPoints);
-  cv.imshowWait('keypoints', res);
-  console.log(features_.keyPoints.length)
-  return features_.keyPoints.length
+    const descriptors = this.detector.compute(img, keyPoints);
+    return { keyPoints, descriptors };
+  }
+
+  numPoints (showImg) {
+    const frame = this.webcam.read();
+    
+    const features_ = this.features(frame)
+    const res = cv.drawKeyPoints(frame, features_.keyPoints);
+    if (showImg) {
+      cv.imshowWait('keypoints', res);
+    } 
+    console.log(features_.keyPoints.length)
+    return features_.keyPoints.length
+  }
 }
 
-module.exports = { numPoints }
+module.exports = Detector

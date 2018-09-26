@@ -1,15 +1,16 @@
 var repl = require("repl").start();
 [
-	'home',
-	'getActive',
-	'g1',
-	'p1',
-	'm',
-	'g',
-	'f',
-	'filler',
-	'tracer',
-	'detector'
+	'events',
+	'home.js',
+	'getActive.js',
+	'g1.js',
+	'p1.js',
+	'm.js',
+	'g.js',
+	'f.js',
+	'filler.js',
+	'tracer.js',
+	'detector.js'
 ].forEach((modName) => {
-  repl.context[modName] = require('./src/' + modName + '.js'); 
+  repl.context[modName] = require('./src/' + modName); 
 });
