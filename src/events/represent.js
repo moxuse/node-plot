@@ -3,6 +3,7 @@ const g = require('../g.js')
 const f = require('../f.js')
 const filler = require('../filler.js')
 const tracer = require('../tracer.js')
+const { scale, rotate, translate, compose, applyToPoint } = require('transformation-matrix')
 
 const dry = () => {
   return 'dry'

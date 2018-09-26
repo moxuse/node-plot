@@ -12,5 +12,6 @@ var repl = require("repl").start();
 	'tracer.js',
 	'detector.js'
 ].forEach((modName) => {
-  repl.context[modName] = require('./src/' + modName); 
+	const modKey = (modName.split('.').length > 1) ? modName.split('.')[0] : modName;
+  repl.context[modKey] = require('./src/' + modName); 
 });
