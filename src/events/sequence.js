@@ -1,11 +1,12 @@
 const events = require('events')
-
+const g1 = require('../g1.js');
+const p1 = require('../p1.js');
 const represent = require('./represent.js')
 const home = require('../home.js')
 const getActive = require('../getActive.js')
 const Detector  =  require('../detector.js')
 const { Limit } = require('../limit.js')
-console.log(Detector)
+
 const space_threshold = 10;
 
 const randomWalk = async (current) => {
@@ -21,12 +22,15 @@ const walkGenerator = async (current, detector) => {
   next = await waitForDistance(current, next);
   
   await waitSec(1);
-  if (avalableSpace(detector)) {
-    // await checkActive(); // for debubg 一時的に
-    console.log(represent.dry());
-  }
+  // if (avalableSpace(detector)) {
+    // await checkActive(); // for debubg 一時的に  
+    const st = await represent.initiatePresent();
+    // const st = await represent.basicRect();
+    console.log(st);
+    p1(st);
+  // }
   
-  await waitSec(1);
+  await waitSec(8);
   walkGenerator(next, detector);
 }
 
