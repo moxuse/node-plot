@@ -19,6 +19,8 @@
     "imagetracerjs": "^1.2.4",
     "opencv4nodejs": "^4.8.0",
     "png.js": "^0.2.1",
+    "svg.js": "^2.6.6",
+    "svgdom": "0.0.15",
     "text-encoding": "^0.6.4",
     "transformation-matrix": "^1.14.1",
     "utf8": "^3.0.0",

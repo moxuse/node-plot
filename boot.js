@@ -5,6 +5,7 @@ var repl = require("repl").start();
 	'getActive.js',
 	'g1.js',
 	'p1.js',
+	's1.js',
 	'm.js',
 	'g.js',
 	'f.js',
