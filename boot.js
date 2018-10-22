@@ -15,3 +15,4 @@ var repl = require("repl").start();
 	const modKey = (modName.split('.').length > 1) ? modName.split('.')[0] : modName;
   repl.context[modKey] = require('./src/' + modName); 
 });
+

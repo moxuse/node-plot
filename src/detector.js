@@ -8,6 +8,7 @@ class Detector {
     this.webcam.set(cv.CAP_PROP_FRAME_WIDTH, 640);
     this.webcam.set(cv.CAP_PROP_FRAME_HEIGHT, 480);
     this.detector = new cv.ORBDetector();
+    // this.descriptor = new cv.AKAZEDetector();
   }
 
   features (img) {
@@ -32,3 +33,4 @@ class Detector {
 }
 
 module.exports = Detector
+

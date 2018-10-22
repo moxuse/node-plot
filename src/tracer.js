@@ -71,3 +71,4 @@ removeFrameLine = (st) => {
 }
 
 module.exports = { trace };
+

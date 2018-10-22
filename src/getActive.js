@@ -10,3 +10,4 @@ var JobActive = function () {
 }
 
 module.exports = JobActive;
+

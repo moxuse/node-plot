@@ -17,9 +17,10 @@ const circle = (st, x, y, rad) => {
     return tr.filter((t) => {
       const dx = t[0] - x;
       const dy = t[1] - y;
-      return rad > Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
+      return rad > Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
     }) 
   })
 }
 
 module.exports = { circle, rect }
+

@@ -158,3 +158,4 @@ fill = (zeros_, x, y) => {
 };
 
 module.exports = { scanLine, fill };
+

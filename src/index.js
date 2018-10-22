@@ -5,3 +5,4 @@ var Slice = function() {
 }
 
 module.exports = Slice;
+

@@ -20,7 +20,7 @@ const postScript = [
 const makeGCode = (tp, i) => {
   let v = 'G1';
   if (i == 0) {
-    // v = 'G0';
+    v = 'G0';
   }
   v += 'X' + tp[0];
   v += 'Y' + tp[1];
@@ -35,9 +35,9 @@ const makePostData = (data) => {
   let p = '';
   p += premble.reduce((p,c,i) => {return p + c}, '');
   data.forEach((st, i) => {
-    st.forEach((tr) => {
+    st.forEach((tr, j) => {
       const tr_ = Limit(tr);
-      const code = makeGCode(tr_, i);
+      const code = makeGCode(tr_, j);
       p += '\n';
       p += code;
     });
@@ -81,3 +81,4 @@ const getActive = () => {
 }
 
 module.exports = { Stream, Homing, getActive };
+

@@ -5,3 +5,4 @@ var G1 = function (data) {
 }
 
 module.exports = G1;
+

@@ -34,3 +34,4 @@ const cos = (stroke, [x, y]) => {
 }
 
 module.exports = { sin, cos, translate, scale };
+

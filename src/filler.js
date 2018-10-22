@@ -115,3 +115,4 @@ const seed = (stroke, x_, y_) => {
 }
 
 module.exports = { liner, rasterLine, seed, rounded,  seedFill };
+
