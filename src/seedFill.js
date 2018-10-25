@@ -127,7 +127,7 @@ fill = (zeros_, x, y) => {
     if (currentDown != prevDown || currentUp != prevUp || Math.abs(prevY - y) > 1) {
       strokeAll.push(trail)
       trail = []
-      console.log('new trail')
+      // console.log('new trail')
     }
     
     prevDown = currentDown;

@@ -13,38 +13,64 @@ const getMotif = () => {
   return path + '/motif/' + filenames[index];
 }
 
-const initiatePresent = async (offset) => {
-  const scale = Math.random() * 0.01 + 0.05
-  return await tracer.trace(getMotif(), scale)
+const initiatePresent = (offset) => {
+  return new Promise(resolve => {
+    const scale = Math.random() * 0.01 + 0.05 
+    const trace_ = tracer.trace(getMotif(), scale).then(st => {
+      resolve(st);
+    })
+  })
 }
 
-const test = async () => {
-  const d = await initiatePresent([0,0])
-  return d
+const initiatePresentFill = () => {
+  return new Promise(resolve => {
+    initiatePresent([0,0]).then((st) => {
+      const pt = getPointForFiller(st);
+      resolve(m.sin(seedFiller(st, pt), [0.3, 0.74]))
+    })
+  })
 }
 
-const basicRect = (offset) => {
-  return new Promise((resolve) => {
+const basicRect = (offset) => { // not work
+  return new Promise(resolve => {
     const fillType = g.stripe()
     const st = m.sin(f.rect(fillType, 0, 0, 70, 70) ,[Math.random()* 0.5,  Math.random()* 0.9])
     resolve(st);
   })
 }
 
-const basicCircle = (offset) => {
-  return new Promise((resolve) => {
+const basicCircle = (offset) => { // not work
+  return new Promise(resolve => {
     const fillType = g.stripe()
     const st = m.sin(f.circle(fillType, 0, 0, 70) ,[Math.random()* 0.5,  Math.random()* 0.9])
     resolve(st);
   })
 }
 
-const fill = (st, pt) => {
+const seedFiller = (st, pt) => {
+  // console.log('pt: ', st.length,pt)
   return filler.seed(st, pt)
 }
 
 const getPointForFiller = (st) => {
-  
+  let maxLen = 0;
+  let maxId = 0;
+  st.map((tr, i) => {
+    const cur = tr.length
+    if(cur > maxLen) {
+      maxLen = cur;
+      maxId = i;
+    }
+  })
+  const trail = st[maxId];
+  return centralPointForTrail(trail)  
 }
 
-module.exports = { test, initiatePresent, basicRect, basicCircle, fill }
+const centralPointForTrail = (tr) => {
+  const mid = Math.floor(tr.length / 2);
+  const x = (tr[0][0] + tr[mid][0]) * 0.5
+  const y = (tr[0][1] + tr[mid][1]) * 0.5
+  return [Math.round(x), Math.round(y)];
+}
+
+module.exports = { initiatePresentFill, initiatePresent, basicRect, basicCircle, fill }

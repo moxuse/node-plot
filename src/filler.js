@@ -107,11 +107,11 @@ const rasterZeros = (zeros_, points) => {
   return zeros_;
 }
 
-const seed = (stroke, x_, y_) => {
+const seed = (stroke, pt) => {
   let plane = zeros([limit[0], limit[1]]);
   const f = rasterLine(stroke);
   rasterZeros(plane, f);
-  return stroke.concat(seedFill.fill(plane, x_, y_));
+  return stroke.concat(seedFill.fill(plane, pt[0], pt[1]));
 }
 
 module.exports = { liner, rasterLine, seed, rounded,  seedFill };
