@@ -26,7 +26,7 @@ const initiatePresentFill = () => {
   return new Promise(resolve => {
     initiatePresent([0,0]).then((st) => {
       const pt = getPointForFiller(st);
-      resolve(m.sin(seedFiller(st, pt), [0.3, 0.74]))
+      resolve(m.sin(seedFiller(st, pt), [0.0, 0.05]))
     })
   })
 }
@@ -34,7 +34,7 @@ const initiatePresentFill = () => {
 const basicRect = (offset) => { // not work
   return new Promise(resolve => {
     const fillType = g.stripe()
-    const st = m.sin(f.rect(fillType, 0, 0, 70, 70) ,[Math.random()* 0.5,  Math.random()* 0.9])
+    const st = m.sin(f.rect(fillType, 0, 0, 70, 70) ,[0,  0.125])
     resolve(st);
   })
 }

@@ -20,7 +20,7 @@ const walkGenerator = async (current, detector) => {
   
   console.log('next cycle:', current, next)
   next = await waitForDistance(current, next);
-  
+
   await waitSec(1);
   // if (avalableSpace(detector)) {
     // await checkActive(); // for debubg 一時的に  
