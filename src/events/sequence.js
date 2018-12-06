@@ -22,6 +22,7 @@ const walkGenerator = async (current, detector) => {
   next = await waitForDistance(current, next);
 
   await waitSec(1);
+  console.log(avalableSpace(detector))
   // if (avalableSpace(detector)) {
     // await checkActive(); // for debubg 一時的に  
     const st = await represent.initiatePresent();

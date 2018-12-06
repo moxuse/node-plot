@@ -26,7 +26,7 @@ const initiatePresentFill = () => {
   return new Promise(resolve => {
     initiatePresent([0,0]).then((st) => {
       const pt = getPointForFiller(st);
-      resolve(m.sin(seedFiller(st, pt), [0.0, 0.05]))
+      resolve(seedFiller(st, pt))
     })
   })
 }

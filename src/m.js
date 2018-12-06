@@ -1,3 +1,4 @@
+const { Noise } = require('./curlnoise.js');
 
 const translate = (stroke, [x, y]) => {
   return stroke.map((tr) => {
@@ -33,5 +34,13 @@ const cos = (stroke, [x, y]) => {
   })
 }
 
-module.exports = { sin, cos, translate, scale };
+const curlNoise = (stroke, time) => {
+  return stroke.map((tr) => {
+    return tr.map((t, i) => {
+      return Noise(t, time, 2000);
+    })
+  })
+}
+
+module.exports = { sin, cos, translate, scale, curlNoise };
 

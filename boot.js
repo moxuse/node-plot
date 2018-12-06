@@ -11,9 +11,10 @@ var repl = require("repl").start();
 	'f.js',
 	'filler.js',
 	'tracer.js',
-	'detector.js'
+	'detector.js',
+	'limit.js',
+	'curlnoise.js'
 ].forEach((modName) => {
 	const modKey = (modName.split('.').length > 1) ? modName.split('.')[0] : modName;
   repl.context[modKey] = require('./src/' + modName); 
 });
-
