@@ -3,7 +3,7 @@ const cv = require('opencv4nodejs');
 class Detector {
   constructor(threshold_) {
     // this.webcam = new cv.VideoCapture(1);
-    this.webcam = new cv.VideoCapture(1);
+    this.webcam = new cv.VideoCapture(0);
     cv.VideoWriter.fourcc('MJPG')
     this.webcam.set(cv.CAP_PROP_FRAME_WIDTH, 640);
     this.webcam.set(cv.CAP_PROP_FRAME_HEIGHT, 480);

@@ -24,7 +24,7 @@ const walkGenerator = async (current, detector) => {
   g1([[next]]);
   next = await waitForDistance(current, next);
 
-  await waitSec(1);
+  await waitSec(15);
   console.log(next, avalableSpace(detector))
   if (avalableSpace(detector)) {
     await checkActive();
@@ -38,9 +38,9 @@ const walkGenerator = async (current, detector) => {
   step++;
   if (step%8 == 0)  {
     home();
-    await waitSec(4);
+    await waitSec(40);
   }
-  await waitSec(5);
+  await waitSec(15);
   await checkActive();
   walkGenerator(next, detector);
 }
