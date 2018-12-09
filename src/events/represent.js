@@ -31,18 +31,18 @@ const initiatePresentFill = () => {
   })
 }
 
-const basicRect = (offset) => { // not work
+const basicRect = (size, offset) => { // not work
   return new Promise(resolve => {
-    const fillType = g.stripe()
-    const st = m.sin(f.rect(fillType, 0, 0, 70, 70) ,[0,  0.125])
+    const fillType = [g.stripe()]
+    const st = m.translate(m.sin(f.rect(fillType, 0, 0, size, size) ,[0,  0.125]), [offset[0], offset[1]])
     resolve(st);
   })
 }
 
-const basicCircle = (offset) => { // not work
+const basicCircle = (size, offset) => {
   return new Promise(resolve => {
-    const fillType = g.stripe()
-    const st = m.sin(f.circle(fillType, 0, 0, 70) ,[Math.random()* 0.5,  Math.random()* 0.9])
+    const fillType = [g.stripe()]
+    const st = m.translate(m.sin(f.circle(fillType, 0, 0, size) ,[Math.random()* 0.5,  Math.random()* 0.9]), [offset[0], offset[1]])
     resolve(st);
   })
 }

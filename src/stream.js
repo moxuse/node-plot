@@ -7,8 +7,8 @@ const baseURL_ = 'http://localhost:4444';
 const premble = [
   "G90", 
   "\nM80",
-  "\nG0F5000",
-  "\nG1F1200",
+  "\nG0F1500",
+  "\nG1F500",
   "\nS77"
 ];
 
@@ -36,7 +36,7 @@ const makePostData = (data) => {
   p += premble.reduce((p,c,i) => {return p + c}, '');
   data.forEach((st, i) => {
     st.forEach((tr, j) => {
-      const tr_ = Limit(tr);
+      const tr_ = Limit(tr, 1);
       const code = makeGCode(tr_, j);
       p += '\n';
       p += code;

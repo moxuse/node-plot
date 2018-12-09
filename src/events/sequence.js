@@ -6,59 +6,83 @@ const home = require('../home.js')
 const getActive = require('../getActive.js')
 const Detector  =  require('../detector.js')
 const { Limit } = require('../limit.js')
+const m = require('../m.js')
+const f = require('../f.js')
 
-const space_threshold = 10;
+const space_threshold = 100;
+let step = 0;
 
-const randomWalk = async (current) => {
-  const detector = new Detector();
+const randomWalk = async (current, threshold) => {
+  const detector = new Detector(threshold);
   const next_ = walkGenerator(current, detector)
 }
 
 const walkGenerator = async (current, detector) => {
   let next = nextPos(current);
-  next = Limit(next);
   
   console.log('next cycle:', current, next)
+  g1([[next]]);
   next = await waitForDistance(current, next);
 
   await waitSec(1);
-  console.log(avalableSpace(detector))
-  // if (avalableSpace(detector)) {
-    // await checkActive(); // for debubg 一時的に  
-    const st = await represent.initiatePresent();
-    // const st = await represent.basicRect();
-    console.log(st);
-    p1(st);
-  // }
-  
-  await waitSec(8);
+  console.log(next, avalableSpace(detector))
+  if (avalableSpace(detector)) {
+    await checkActive();
+    // const st = await represent.initiatePresent();
+    // const st = await represent.basicCircle(20, next);
+    const st = await drawRepresents(next);
+      
+    console.log('do stroke!!', st);
+    g1(st);
+  }
+  step++;
+  if (step%8 == 0)  {
+    home();
+    await waitSec(4);
+  }
+  await waitSec(5);
+  await checkActive();
   walkGenerator(next, detector);
 }
 
-const checkActive = () => {
-  return new Promise(async () => {
-    if (await getActive()) {
-      await waitSec(1)
-      await checkActive()
-    }  else {
-      resolve()
-    }
-  })
+const drawRepresents = async (offset) => {
+  const seed = Math.round(Math.random() * 3)
+  let skil;
+  // if (seed === 0) {
+    await represent.initiatePresentFill()
+      .then(t => {skil = m.translate(m.scale(f.circle(m.curlNoise(t, 8, 50), 50, 50, 60), [0.25, 0.25]), offset)})
+  // } else if (seed === 1) {
+
+  // } else if (seed === 2) {
+
+  // }
+  return skil;
+}
+
+const checkActive = async () => {
+  const b_ = await getActive();
+  if ('True' === b_) {
+    await waitSec(4)
+    await checkActive()
+  }
 }
 
 const nextPos = (current) => {
-  const maxLength = 40;
-  const d_ = Limit([Math.random() * maxLength + current[0], Math.random() * maxLength + current[1]])
+  const maxLengthX = 150;
+  const maxLengthY = 550;
+  const d_ = Limit([Math.random() * maxLengthX + current[0], Math.random() * maxLengthY + current[1]])
   const seedX = Math.floor(Math.random() * 2)
   const factX = seedX == 1 ? -1 : 1
   const seedY = Math.floor(Math.random() * 2)
   const factY = seedY == 1 ? -1 : 1
-  return [d_[0] * factX, d_[1] * factY];
+  let xx_ = d_[0] * factX;
+  if (xx_ > 170) { xx_ = 170 }
+  return Limit([xx_, d_[1] * factY], 1);
 }
 
  const waitForDistance = async (from, to) => {
   return new Promise((resolve) => {
-    const fact = 100;
+    const fact = 30;
     const time = Math.sqrt( Math.pow(to[0] - from[0], 2) + Math.pow(to[1] - from[1], 2) ) * fact
     setTimeout(() =>  {
       resolve(to)
@@ -75,7 +99,7 @@ const waitSec = (sec) => {
 }
 
 const avalableSpace = (detector) => {
-  return (detector.numPoints() < space_threshold);
+  return (detector.numPoints(true) < space_threshold);
 }
 
-module.exports = { randomWalk }
+module.exports = { randomWalk , checkActive }
