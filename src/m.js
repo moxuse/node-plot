@@ -34,10 +34,10 @@ const cos = (stroke, [x, y]) => {
   })
 }
 
-const curlNoise = (stroke, time) => {
+const curlNoise = (stroke, time, scale) => {
   return stroke.map((tr) => {
     return tr.map((t, i) => {
-      return Noise(t, time, 2000);
+      return Noise(t, time || 1, scale || 1);
     })
   })
 }
