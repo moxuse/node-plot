@@ -46,16 +46,21 @@ const walkGenerator = async (current, detector) => {
 }
 
 const drawRepresents = async (offset) => {
-  const seed = Math.round(Math.random() * 3)
+  const seed = Math.round(Math.random() * 4)
   let skil;
-  // if (seed === 0) {
+  if (seed === 0) {
     await represent.initiatePresentFill()
       .then(t => {skil = m.translate(m.scale(f.circle(m.curlNoise(t, 8, 50), 50, 50, 60), [0.25, 0.25]), offset)})
-  // } else if (seed === 1) {
-
-  // } else if (seed === 2) {
-
-  // }
+  } else if (seed === 1) {
+    await represent.initiatePresentFill()
+      .then(t => {skil = m.translate(m.scale(f.circle(m.curlNoise(t, 14, 40), 50, 50, 60), [0.25, 0.25]), offset)})
+  } else if (seed === 2) {
+    await represent.initiatePresentFill()
+      .then(t => {skil = m.translate(m.scale(f.circle(m.curlNoise(t, 0, 0), 50, 50, 60), [0.25, 0.25]), offset)})
+  } else {
+    await represent.initiatePresentFill()
+      .then(t => {skil = m.translate(m.scale(t, [0.25, 0.25]), offset)})
+  }
   return skil;
 }
 
