@@ -28,10 +28,7 @@ const walkGenerator = async (current, detector) => {
   console.log(next, avalableSpace(detector))
   if (avalableSpace(detector)) {
     await checkActive();
-    // const st = await represent.initiatePresent();
-    // const st = await represent.basicCircle(20, next);
     const st = await drawRepresents(next);
-      
     console.log('do stroke!!', st);
     g1(st);
   }
@@ -87,7 +84,7 @@ const nextPos = (current) => {
 
  const waitForDistance = async (from, to) => {
   return new Promise((resolve) => {
-    const fact = 30;
+    const fact = 100;
     const time = Math.sqrt( Math.pow(to[0] - from[0], 2) + Math.pow(to[1] - from[1], 2) ) * fact
     setTimeout(() =>  {
       resolve(to)
