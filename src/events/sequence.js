@@ -35,7 +35,7 @@ const walkGenerator = async (current, detector) => {
   step++;
   if (step%8 == 0)  {
     home();
-    await waitSec(40);
+    await waitSec(45);
   }
   await waitSec(15);
   await checkActive();
@@ -64,7 +64,7 @@ const drawRepresents = async (offset) => {
 const checkActive = async () => {
   const b_ = await getActive();
   if ('True' === b_) {
-    await waitSec(4)
+    await waitSec(10)
     await checkActive()
   }
 }
