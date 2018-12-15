@@ -70,8 +70,8 @@ const checkActive = async () => {
 }
 
 const nextPos = (current) => {
-  const maxLengthX = 150;
-  const maxLengthY = 550;
+  const maxLengthX = 50;
+  const maxLengthY = 150;
   const d_ = Limit([Math.random() * maxLengthX + current[0], Math.random() * maxLengthY + current[1]])
   const seedX = Math.floor(Math.random() * 2)
   const factX = seedX == 1 ? -1 : 1
