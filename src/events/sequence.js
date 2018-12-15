@@ -80,7 +80,12 @@ const nextPos = (current) => {
   const factY = seedY == 1 ? -1 : 1
   let xx_ = d_[0] * factX;
   if (xx_ > 140) { xx_ = 140 }
-  return Limit([xx_, d_[1] * factY], 1);
+
+  let val = Limit([xx_, d_[1] * factY], 1);
+  if (30 > val[0] || val[1] < 30) {
+    val = nextPos(current);
+  }
+  return val;
 }
 
  const waitForDistance = async (from, to) => {
@@ -105,4 +110,4 @@ const avalableSpace = (detector) => {
   return (detector.numPoints(true) < space_threshold);
 }
 
-module.exports = { randomWalk , checkActive }
+module.exports = { randomWalk , checkActive, nextPos }
