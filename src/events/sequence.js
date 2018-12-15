@@ -24,7 +24,7 @@ const walkGenerator = async (current, detector) => {
   g1([[next]]);
   next = await waitForDistance(current, next);
 
-  await waitSec(15);
+  await waitSec(8);
   console.log(next, avalableSpace(detector))
   if (avalableSpace(detector)) {
     await checkActive();
@@ -33,9 +33,9 @@ const walkGenerator = async (current, detector) => {
     g1(st);
   }
   step++;
-  if (step%8 == 0)  {
+  if (step%12 == 0)  {
     home();
-    await waitSec(45);
+    await waitSec(25);
   }
   await waitSec(15);
   await checkActive();
@@ -55,7 +55,7 @@ const drawRepresents = async (offset) => {
     await represent.initiatePresentFill()
       .then(t => {skil = m.translate(m.scale(f.circle(m.curlNoise(t, 0, 0), 50, 50, 60), [0.25, 0.25]), offset)})
   } else {
-    await represent.initiatePresentFill()
+    await represent.initiatePresent([0,0])
       .then(t => {skil = m.translate(m.scale(t, [0.25, 0.25]), offset)})
   }
   return skil;
@@ -70,7 +70,7 @@ const checkActive = async () => {
 }
 
 const nextPos = (current) => {
-  const maxLengthX = 150;
+  const maxLengthX = 130;
   const maxLengthY = 550;
   const d_ = Limit([Math.random() * maxLengthX + current[0], Math.random() * maxLengthY + current[1]])
   const seedX = Math.floor(Math.random() * 2)
@@ -78,7 +78,7 @@ const nextPos = (current) => {
   const seedY = Math.floor(Math.random() * 2)
   const factY = seedY == 1 ? -1 : 1
   let xx_ = d_[0] * factX;
-  if (xx_ > 170) { xx_ = 170 }
+  if (xx_ > 140) { xx_ = 140 }
   return Limit([xx_, d_[1] * factY], 1);
 }
 
