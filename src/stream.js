@@ -67,7 +67,7 @@ const post = (d_) => {
   // console.log(params);
   const rq = axios.create({
     baseURL: baseURL_,
-    timeout: 1000
+    timeout: 30000
   });
   return rq.post('/gcode', params);
 }
@@ -75,7 +75,7 @@ const post = (d_) => {
 const getActive = () => {
   const rq = axios.create({
     baseURL: baseURL_,
-    timeout: 1000
+    timeout: 30000
   });
   return rq.get('/job_active');
 }
