@@ -5,7 +5,7 @@ const represent = require('./represent.js')
 const home = require('../home.js')
 const getActive = require('../getActive.js')
 const Detector  =  require('../detector.js')
-const { Limit } = require('../limit.js')
+const { Limit, limit } = require('../limit.js')
 const m = require('../m.js')
 const f = require('../f.js')
 
@@ -70,21 +70,22 @@ const checkActive = async () => {
 }
 
 const nextPos = (current) => {
-  const maxLengthX = 50;
-  const maxLengthY = 150;
+  // const maxLengthX = 50;
+  // const maxLengthY = 150;
 
-  const d_ = Limit([Math.random() * maxLengthX + current[0], Math.random() * maxLengthY + current[1]])
-  const seedX = Math.floor(Math.random() * 2)
-  const factX = seedX == 1 ? -1 : 1
-  const seedY = Math.floor(Math.random() * 2)
-  const factY = seedY == 1 ? -1 : 1
-  let xx_ = d_[0] * factX;
-  if (xx_ > 140) { xx_ = 140 }
+  // const d_ = Limit([Math.random() * maxLengthX + current[0], Math.random() * maxLengthY + current[1]])
+  // const seedX = Math.floor(Math.random() * 2)
+  // const factX = seedX == 1 ? -1 : 1
+  // const seedY = Math.floor(Math.random() * 2)
+  // const factY = seedY == 1 ? -1 : 1
+  // let xx_ = d_[0] * factX;
+  // if (xx_ > 140) { xx_ = 140 }
 
-  let val = Limit([xx_, d_[1] * factY], 1);
-  if (30 > val[0] || val[1] < 30) {
-    val = nextPos(current);
-  }
+  // let val = Limit([xx_, d_[1] * factY], 1);
+  // if (30 > val[0] || val[1] < 30) {
+  //   val = nextPos(current);
+  // }
+  const val = Limit([Math.random() * limit[0] - 40, Math.random() * limit[1] - 40], 1);
   return val;
 }
 
